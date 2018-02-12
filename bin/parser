@@ -1,0 +1,24 @@
+#!/usr/bin/env ruby
+require_relative '../lib/cron_parser'
+
+if ARGV[0] == "help"
+  puts <<-eos
+  You have to provide 6 parameters for the parser:
+  ----------------------------------------------------------------------------------
+  bin/parser * * * * * *
+             | | | | | |
+             | | | | | +-- The command to be run (e.g. /usr/bin/find)
+             | | | | +---- Day of the Week       (range: 1-7, 1 standing for Monday)
+             | | | +------ Month of the Year     (range: 1-12)
+             | | +-------- Day of the Month      (range: 1-31)
+             | +---------- Hour                  (range: 0-23)
+             +------------ Minute                (range: 0-59)
+  ----------------------------------------------------------------------------------
+  Type `bin/parser help` to see this output again.
+  eos
+else
+  parser = CronParser.new(ARGV[0].split(" "))
+  puts parser.parse
+end
+
+
